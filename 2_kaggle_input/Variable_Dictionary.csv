@@ -1,0 +1,14 @@
+Variable,Description,Type / Values
+province_name,Province or territory name.,"Character; one of: Punjab, Sindh, Khyber Pakhtunkhwa, Balochistan, Gilgit Baltistan, Azad Kashmir, Islamabad"
+district_name / tehsil_name,Official administrative unit name as provided by OCHA COD-AB via pkmapr.,Character
+district_code / tehsil_code,OCHA COD-AB administrative unit code used as the primary join key throughout. Used in preference to names to account for non-unique tehsil names and multi-polygon geometries.,Character (e.g. PK101); unique per administrative unit
+area_km2,"Total administrative unit area in km², from pkmapr built-in measurements.",Numeric
+flooded_km2,"VIIRS-detected flooded area within the administrative unit, computed by spatial intersection with the UNOSAT flood extent product. Zero indicates no detected flooding. Values represent conservative lower bounds because optical sensors cannot detect surface water beneath cloud cover during acquisition.",Numeric
+pct_flooded,"Flooded area expressed as a percentage of total unit area (flooded_km2 / area_km2 × 100), capped at 100.",Numeric
+year,Monsoon season year corresponding to the flood extent product.,"Integer; one of: 2022, 2023, 2024, 2025"
+gi_z,"Getis-Ord Gi* z-score computed on pct_flooded using binary row-standardised spatial weights. Positive values indicate clustering of high flood intensity, while negative values indicate clustering of low flood intensity.",Numeric
+hotspot,Gi* hotspot classification derived from gi_z.,"Character; one of: Hot Spot (99%), Hot Spot (95%), Not Significant, Cold Spot (95%), Cold Spot (99%)"
+lisa_quad,LISA quadrant classification derived from localmoran() at p < 0.05.,"Character; one of: High-High, Low-Low, High-Low, Low-High, Not Significant"
+lisa_p,Local Moran’s I significance p-value.,Numeric; range 0–1
+z_val,Standardised pct_flooded value used in LISA computation.,Numeric
+z_lag,"Spatial lag of the standardised pct_flooded value. Together with z_val, permits full reconstruction of LISA scatterplot quadrant assignments at any user-specified significance threshold.",Numeric
